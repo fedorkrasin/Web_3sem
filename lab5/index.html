@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <title>Lab 5</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body ng-app="studentsApp" ng-controller="studentController">
+    <div class="wrapper">
+        <table border="1" cellpadding="10">
+            <tr class="table-header">
+              <th class="name-head">Name</th>
+              <th class="surname-head">Surname</th>
+              <th class="age-head">Age</th>
+              <th class="average-mark-head">Mark</th>
+              <th></th>
+              <th></th>
+            </tr>
+            <tr ng-repeat="student in model.students">
+                <td>{{ student.name }}</td>
+                <td>{{ student.surname }}</td>
+                <td>{{ student.age }}</td>
+                <td>{{ student.averageMark }}</td>
+                <td><button ng-click="editStudent(student)" class="row_btn" type="button">Edit</button></td>
+                <td><button ng-click="deleteStudent(student)" class="row_btn" type="button">Delete</button></td>
+            </tr>
+          </table>
+    </div>
+
+    <form class="add__row">
+      <input ng-model="student.name" type="text" class="add_name" placeholder="Name">
+      <input ng-model="student.surname" type="text" class="add_surname" placeholder="Surname">
+      <input ng-model="student.age" type="text" class="add_age" placeholder="Age">
+      <input ng-model="student.averageMark" type="text" class="add_average_mark" placeholder="Mark">
+      <button ng-click="addStudent(student)" class="add__row--btn" type="button">Add row</button>
+    </form>
+
+    <div id="text-content">Средний балл всех студентов: {{ averageMark }}</div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+  </body>
+</html>
