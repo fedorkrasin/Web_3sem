@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Lab1</title>
+</head>
+<body>
+	<p>Элементы массива:</p>
+	<p id = "a"></p>
+
+	<p>Минимальный элемент:</p>
+	<p id = "a_min"></p>
+
+	<p>Максимальный элемент:</p>
+	<p id = "a_max"></p>
+
+	<p>Сумма элементов:</p>
+	<p id = "sum"></p>
+
+	<script type="text/javascript">
+		let a = [];
+		const length = 5;
+
+		for (let i = 0; i < length; i++) {
+			let b = prompt('Введите массив');
+			a[i] = parseInt(b); 
+		}
+
+		for (let i = 0; i < length - 1; i++)
+			for (let j = i + 1; j < length; j++)
+				if (a[i] > a[j]) {
+					let d = a[i];
+					a[i] = a[j];
+					a[j] = d;
+				}
+
+		let a_min = a[0];
+		let a_max = a[0];	
+
+		for (let i = 1; i < length; i++) {
+			if (a[i] < a_min) {
+				a_min = a[i];
+			}
+
+			if (a[i] > a_max) {
+				a_max = a[i];
+			}
+		}
+
+		let sum = 0;
+
+		for (let i = 0; i < length; i++) {
+			sum += a[i]; 
+		}
+
+		let a_string = a.join(' ');
+
+		for (let i = 0; i < length; i++) {
+			sum += a[i]; 
+		}
+
+		document.getElementById('a').textContent = a_string;
+		document.getElementById('a_min').textContent = a_min;
+		document.getElementById('a_max').textContent = a_max;
+		document.getElementById('sum').textContent = sum;
+	</script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>lab3</title>
+</head>
+<body>
+	<table border="1" cellpadding="10" id="myList">
+	</table>
+
+	<div>
+	  <form name="newStudent">
+	    <input type = "text" name = "formName" placeholder = "Name" id = "formName">
+	    <input type = "text" name = "formSurname" placeholder = "Surname" id = "formSurname">
+	    <input type = "text" name = "formAge" placeholder = "Age" id = "formAge">
+	    <input type = "text" name = "formMark" placeholder = "Mark" id = "formMark">
+	    <input type = "submit" value = "Send">
+	  </form>
+	</div>
+
+	<p>Средний балл всех студентов:</p>
+	<p id = "avMark"></p>
+
+	<script type="text/javascript">
+		var studentArray = [];
+		const TABLE_WIDTH = 5;
+
+		studentArray[0] = {
+			name: "Ivan",
+			surname: "Ivanov",
+			age: 19,
+			mark: 7.7
+		}
+
+		studentArray[1] = {
+			name: "John",
+			surname: "Smith",
+			age: 18,
+			mark: 8.1
+		}
+
+		studentArray[2] = {
+			name: "Anna",
+			surname: "Petrova",
+			age: 21,
+			mark: 6.8
+		}
+
+		studentArray[3] = {
+			name: "James",
+			surname: "Bond",
+			age: 25,
+			mark: 9.5
+		} 
+
+		let sumMark = 0;
+		var tdArray = [];
+		var textArray = [];
+
+		var table = document.getElementById("myList");
+		var tr = document.createElement('tr');   
+
+		for (var i = 0; i < TABLE_WIDTH; i++) 
+			tdArray[i] = document.createElement('th');
+
+		textArray[0] = document.createTextNode("Name"); // add table header
+		textArray[1] = document.createTextNode("Surname");
+		textArray[2] = document.createTextNode("Age");
+		textArray[3] = document.createTextNode("Mark");
+		textArray[4] = document.createTextNode("");
+
+		for (var i = 0; i < TABLE_WIDTH; i++) {
+			tdArray[i].appendChild(textArray[i]);
+			tr.appendChild(tdArray[i]);
+		}
+
+		table.appendChild(tr);
+
+		for (var i = 0; i < studentArray.length; i++) {
+		    var tr = document.createElement('tr');   
+
+		    for (var j = 0; j < TABLE_WIDTH; j++)
+		    	tdArray[j] = document.createElement('td');
+
+		    textArray[0] = document.createTextNode(studentArray[i].name); // add student to the table
+		    textArray[1] = document.createTextNode(studentArray[i].surname);
+		    textArray[2] = document.createTextNode(studentArray[i].age);
+		    textArray[3] = document.createTextNode(studentArray[i].mark);
+		    textArray[4] = document.createElement("button");
+
+			textArray[4].innerHTML = "Delete";
+			textArray[4].id = i; // add Edit button id
+
+			textArray[4].onclick = function() { // onclick event
+				var line = document.getElementsByTagName("td");
+
+				studentArray.splice(event.target.id, 1);
+
+				for (var n = 0; n < 5; n++) { // clear line
+					line[event.target.id * 5 + n].innerHTML = "";
+				}
+
+				var sumMark = 0;
+
+				for (var n = 0; n < studentArray.length; n++) {
+					sumMark += parseFloat(studentArray[n].mark);
+				}
+
+		    	let averageMark = sumMark / studentArray.length;
+				document.getElementById("avMark").textContent = averageMark;
+			}
+
+		    sumMark += parseFloat(studentArray[i].mark); // add mark to sum mark
+
+		    for (var j = 0; j < TABLE_WIDTH; j++) {
+		    	tdArray[j].appendChild(textArray[j]);
+		    	tr.appendChild(tdArray[j]);
+		    }
+
+		    table.appendChild(tr);
+		}
+
+		let averageMark = sumMark / studentArray.length;
+		document.getElementById("avMark").textContent = averageMark;
+
+		document.forms.newStudent.onsubmit = function() {
+		    studentArray.push( { name: this.formName.value, surname: this.formSurname.value, // add object to the array
+		  					     age: this.formAge.value, mark: this.formMark.value } );
+
+		    var tr = document.createElement('tr');   
+
+		    for (var j = 0; j < TABLE_WIDTH; j++)
+		    	tdArray[j] = document.createElement('td');
+
+		    textArray[0] = document.createTextNode(studentArray[studentArray.length - 1].name); // add object to the table
+		    textArray[1] = document.createTextNode(studentArray[studentArray.length - 1].surname);
+		    textArray[2] = document.createTextNode(studentArray[studentArray.length - 1].age);
+		    textArray[3] = document.createTextNode(studentArray[studentArray.length - 1].mark);
+		    textArray[4] = document.createElement("button");
+
+			textArray[4].innerHTML = "Delete";
+			textArray[4].id = (studentArray.length - 1); // add Edit button id
+			textArray[4].onclick = function() { // onclick event
+				var line = document.getElementsByTagName("td");
+
+				studentArray.splice(event.target.id, 1);
+
+				for (var n = 0; n < 5; n++) { // clear line
+					line[event.target.id * 5 + n].innerHTML = "";
+				}
+
+				var sumMark = 0;
+				
+				for (var n = 0; n < studentArray.length; n++) {
+					sumMark += parseFloat(studentArray[n].mark);
+				}
+
+		    	let averageMark = sumMark / studentArray.length;
+				document.getElementById("avMark").textContent = averageMark;
+			}
+
+		    for (var j = 0; j < TABLE_WIDTH; j++) {
+		    	tdArray[j].appendChild(textArray[j]);
+		    	tr.appendChild(tdArray[j]);
+		    }
+
+		    table.appendChild(tr);
+
+		    sumMark += parseFloat(studentArray[studentArray.length - 1].mark); // add mark to sum mark
+		    let averageMark = sumMark / studentArray.length;
+			document.getElementById("avMark").textContent = averageMark;
+
+		    document.getElementById("formName").value = ""; // clear form
+		    document.getElementById("formSurname").value = "";
+		    document.getElementById("formAge").value = "";
+		    document.getElementById("formMark").value = "";
+
+		    return false;
+		};
+	</script>
+</body>
+</html>

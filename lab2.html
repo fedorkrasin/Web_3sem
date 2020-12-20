@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>lab2</title>
+</head>
+<body>
+	<table border="1" cellpadding="10" id="myList">
+	</table>
+
+	<p>Средний балл всех студентов:</p>
+	<p id = "avMark"></p>
+
+	<script type="text/javascript">
+		var studentArray = [];
+
+		studentArray[0] = {
+			name: "Ivan",
+			surname: "Ivanov",
+			age: 19,
+			mark: 7.7
+		}
+
+		studentArray[1] = {
+			name: "John",
+			surname: "Smith",
+			age: 18,
+			mark: 8.1
+		}
+
+		studentArray[2] = {
+			name: "Anna",
+			surname: "Petrova",
+			age: 21,
+			mark: 6.8
+		}
+
+		studentArray[3] = {
+			name: "James",
+			surname: "Bond",
+			age: 25,
+			mark: 9.5
+		} 
+
+		let sumMark = 0;
+		var tdArray = [4];
+		var textArray = [4];
+
+		var table = document.getElementById("myList");
+		var tr = document.createElement('tr');   
+
+		for (var i = 0; i < 4; i++)
+			tdArray[i] = document.createElement('th');
+
+		textArray[0] = document.createTextNode("Name");
+		textArray[1] = document.createTextNode("Surname");
+		textArray[2] = document.createTextNode("Age");
+		textArray[3] = document.createTextNode("Mark");
+
+		for (var i = 0; i < 4; i++) {
+			tdArray[i].appendChild(textArray[i]);
+			tr.appendChild(tdArray[i]);
+		}
+
+		table.appendChild(tr);
+
+		for (var i = 0; i < 4; i++) {
+		    var tr = document.createElement('tr');   
+
+		    for (var j = 0; j < 4; j++)
+		    	tdArray[j] = document.createElement('td');
+
+		    textArray[0] = document.createTextNode(studentArray[i].name);
+		    textArray[1] = document.createTextNode(studentArray[i].surname);
+		    textArray[2] = document.createTextNode(studentArray[i].age);
+		    textArray[3] = document.createTextNode(studentArray[i].mark);
+
+		    sumMark += parseFloat(studentArray[i].mark);
+
+		    for (var j = 0; j < 4; j++) {
+		    	tdArray[j].appendChild(textArray[j]);
+		    	tr.appendChild(tdArray[j]);
+		    }
+
+		    table.appendChild(tr);
+		}
+
+		let averageMark = sumMark / 4;
+		document.getElementById("avMark").textContent = averageMark;
+	</script>
+</body>
+</html>
